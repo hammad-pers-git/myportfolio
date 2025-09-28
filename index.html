@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Portfolio with Coding Background</title>
+
+    <!-- Bootstrap + FontAwesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Background (Coding Animation) */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.8;
+            background: #0c192c;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .Container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .code span {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00,
+                0 0 20px #00ff00,
+                0 0 40px #00ff00;
+            animation: float linear infinite;
+            animation-duration: var(--duration);
+            animation-delay: var(--delay);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(12, 25, 44, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(12, 25, 44, 0.85);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Navbar hover underline */
+        .navbar-nav .nav-link {
+            position: relative;
+            color: white !important;
+            font-weight: 500;
+            padding: 8px 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background: #ff3b3b;
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff3b3b !important;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Active Navbar Link */
+        .navbar-nav .nav-link.active {
+            color: #ff3b3b !important;
+        }
+
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+
+        /* Custom Toggler (Hamburger to X animation) */
+        .navbar-toggler {
+            border: none;
+            background: transparent;
+            outline: none;
+        }
+
+        .navbar-toggler span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background: #fff;
+            transition: all 0.4s ease;
+        }
+
+        .navbar-toggler.collapsed .line1 {
+            transform: rotate(0) translate(0, 0);
+        }
+
+        .navbar-toggler.collapsed .line2 {
+            opacity: 1;
+        }
+
+        .navbar-toggler.collapsed .line3 {
+            transform: rotate(0) translate(0, 0);
+        }
+
+        .navbar-toggler:not(.collapsed) .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .navbar-toggler:not(.collapsed) .line2 {
+            opacity: 0;
+        }
+
+        .navbar-toggler:not(.collapsed) .line3 {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Buttons / Cards */
+        .btn {
+            padding: 10px;
+            width: 130px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.5);
+        }
+
+        /* Navbar Social Links - Horizontal and Clean */
+        .navbar .social-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* spacing between icons */
+        }
+
+        .navbar .social-links a {
+            background-color: rgba(61, 61, 61, 0.7);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            /* remove underline */
+            transition: all 0.3s ease;
+        }
+
+        .navbar .social-links a:hover {
+            transform: scale(1.2);
+            background-color: #dc3545;
+            color: white;
+        }
+
+
+        section {
+            padding-top: 150px;
+            padding-bottom: 150px;
+        }
+
+        /* Banner Section */
+        #banner .row {
+            align-items: center;
+        }
+
+        #banner img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            opacity: 0.95;
+
+            /* blur corners */
+            -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            -webkit-mask-size: cover;
+
+            mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: cover;
+        }
+
+        #about .about-img {
+            position: relative;
+            display: inline-block;
+        }
+
+        #about .about-img img {
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        #about .about-img img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(220, 53, 69, 0.6);
+        }
+
+        #about .about-shape {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed rgba(220, 53, 69, 0.6);
+            border-radius: 12px;
+            z-index: -1;
+            animation: rotateShape 8s linear infinite;
+        }
+
+        @keyframes rotateShape {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Skills */
+        .skill-icon {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .skill-icon.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-icon i {
+            transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-icon i:hover {
+            transform: scale(1.3) rotate(10deg);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Floating animation for skill icons */
+        @keyframes floatSkill {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .skill-icon {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+            animation: floatSkill 3s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.2s);
+            /* optional stagger effect */
+        }
+
+        /* PROJECTS */
+        .project-card {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        .icon-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-box i {
+            font-size: 100px;
+            color: #dc3545;
+            /* Red accent */
+            text-shadow: 0 0 20px rgba(220, 53, 69, 0.7);
+        }
+
+        .smart-form {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .smart-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-control {
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+            border: none;
+        }
+
+        label {
+            color: #555;
+        }
+
+        .contact-box {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Contact Form Box */
+        .contact-form-box {
+            max-width: 500px;
+            /* width kam */
+            height: 100%;
+            /* same height as info box */
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            /* rounded corners */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-form-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* footer */
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        #backToTop {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: floatBackToTop 2.5s ease-in-out infinite;
+            /* Floating animation */
+        }
+
+        @keyframes floatBackToTop {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            /* Moves up by 10px */
+        }
+
+
+        /* Text column initial state */
+        #banner .col-lg-6:first-child {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        /* Image column initial state */
+        #banner .col-lg-6:last-child {
+            opacity: 0;
+            transform: translateX(50px);
+            /* slide from right */
+            transition: all 1s ease;
+        }
+
+        /* Visible state */
+        #banner .col-lg-6.visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Hero section buttons smaller */
+        #banner .btn {
+            padding: 8px 20px;
+            /* slightly smaller than original */
+            font-size: 0.9rem;
+            /* reduce font size */
+            width: auto;
+            /* remove fixed width to make responsive */
+        }
+
+        #banner .btn i {
+            font-size: 0.9rem;
+            /* adjust icon size to match smaller button */
+        }
+
+
+        /* Modern Animated Icon */
+        .icon-box {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 0, 0, 0.05);
+            box-shadow: 0 0 20px rgba(220, 53, 69, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .icon-box i {
+            font-size: 4rem;
+            color: #dc3545;
+            text-shadow: 0 0 20px #dc3545, 0 0 40px rgba(220, 53, 69, 0.6);
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        /* Floating animation for the icon */
+        @keyframes floatIcon {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Pulsing circles */
+        .icon-box .circle {
+            position: absolute;
+            border: 2px solid rgba(220, 53, 69, 0.4);
+            border-radius: 50%;
+            animation: pulse 4s infinite;
+        }
+
+        .icon-box .circle1 {
+            width: 180px;
+            height: 180px;
+            top: -10px;
+            left: -10px;
+            animation-delay: 0s;
+        }
+
+        .icon-box .circle2 {
+            width: 210px;
+            height: 210px;
+            top: -25px;
+            left: -25px;
+            animation-delay: 1s;
+        }
+
+        .icon-box .circle3 {
+            width: 240px;
+            height: 240px;
+            top: -40px;
+            left: -40px;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+        }
+
+        /* Hover effect for extra glow */
+        .icon-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(220, 53, 69, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="Container">
+        <div class="code" id="codeContainer"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <div class="brand-icon me-2">
+                    <i class="fa-solid fa-user-astronaut text-danger"></i>
+                </div>
+                <span class="fw-bold text-white">Hammad's Portfolio</span>
+            </a>
+
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="line1"></span>
+                <span class="line2"></span>
+                <span class="line3"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link text-white" href="#banner">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#contact">Contact</a></li>
+                </ul>
+                <div class="social-links ms-auto">
+                    <a href="https://www.facebook.com/profile.php?id=100056387335546" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/_hammadahmed__/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/hammad-ahmed-731aa230b/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <section id="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="fw-bold display-4">Hammad Ahmed<span class="dot text-danger">.</span></h1>
+                    <p class="text-white-50 mt-3">
+                        I am a <span class="text-danger fw-bold">Full-Stack Web Developer</span> passionate about
+                        building modern, responsive, and interactive web applications.
+                        I create clean, efficient code and visually appealing digital experiences.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="mt-4">
+                        <a href="#projects" class="btn btn-danger btn-lg me-3">
+                            <i class="fa-solid fa-code me-2"></i> My Projects
+                        </a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">
+                            <i class="fa-solid fa-paper-plane me-2"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6 text-center mt-4 mt-lg-0">
+                    <img src="pictures/coding.jpg" alt="Banner Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- Left Side Icon -->
+                <!-- Left Side Icon -->
+                <div class="col-lg-5 text-center mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <i class="fas fa-laptop-code"></i>
+
+                        <!-- Optional animated circles -->
+                        <span class="circle circle1"></span>
+                        <span class="circle circle2"></span>
+                        <span class="circle circle3"></span>
+                    </div>
+                </div>
+
+                <!-- Right Side Content -->
+                <div class="col-lg-7">
+                    <h2 class="fw-bold display-5 mb-3">About <span class="text-danger">Me</span></h2>
+                    <p class="text-white-50">
+                        I am a passionate <span class="text-danger fw-bold">Web Developer</span> with a strong
+                        background in creating modern, responsive, and user-friendly websites.
+                        My goal is to craft digital experiences that are not only functional
+                        but also visually appealing.
+                    </p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <h6 class="fw-bold text-white"><i class="fa-solid fa-user me-2 text-danger"></i> Name:</h6>
+                            <p class="text-white-50 mb-0">Hammad Ahmed.</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="fw-bold text-white"><i class="fa-solid fa-envelope me-2 text-danger"></i> Email:
+                            </h6>
+                            <p class="text-white-50 mb-0">ha9001868@email.com</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="fw-bold text-white"><i class="fa-solid fa-phone me-2 text-danger"></i> Phone:
+                            </h6>
+                            <p class="text-white-50 mb-0">+92 341 2120752</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="fw-bold text-white"><i class="fa-solid fa-location-dot me-2 text-danger"></i>
+                                Location:</h6>
+                            <p class="text-white-50 mb-0">Karachi, Pakistan</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="#contact" class="btn btn-danger me-3">Hire Me</a>
+                        <a href="Hammad_Ahmed_CV.pdf" class="btn btn-outline-light" target="_blank">Download CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold display-5">My <span class="text-danger">Skills</span></h2>
+                <p class="text-white-50">A blend of technical expertise and creative problem solving.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Skill Icons -->
+                <div class="col-4 col-md-2 text-center skill-icon" style="--i:0">
+                    <i class="fa-solid fa-code text-danger fa-3x"></i>
+                    <p class="text-white mt-2">HTML / CSS</p>
+                </div>
+
+                <div class="col-4 col-md-2 text-center skill-icon" style="--i:1">
+                    <i class="fa-brands fa-js text-warning fa-3x"></i>
+                    <p class="text-white mt-2">JavaScript</p>
+                </div>
+
+                <div class="col-4 col-md-2 text-center skill-icon" style="--i:2">
+                    <i class="fa-brands fa-react text-info fa-3x"></i>
+                    <p class="text-white mt-2">React</p>
+                </div>
+
+                <div class="col-4 col-md-2 text-center skill-icon" style="--i:3">
+                    <i class="fa-solid fa-database text-success fa-3x"></i>
+                    <p class="text-white mt-2">MySQL / MongoDB</p>
+                </div>
+
+                <div class="col-4 col-md-2 text-center skill-icon" style="--i:4">
+                    <i class="fa-brands fa-node-js text-success fa-3x"></i>
+                    <p class="text-white mt-2">Node.js</p>
+                </div>
+
+                <div class="col-4 col-md-2 text-center skill-icon" style="--i:5">
+                    <i class="fa-solid fa-paintbrush text-primary fa-3x"></i>
+                    <p class="text-white mt-2">UI/UX Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold display-5 mb-5">My <span class="text-danger">Projects</span></h2>
+
+            <!-- Project Slider -->
+            <div class="project-slider position-relative mb-4">
+                <div class="project-card mx-auto">
+                    <img src="https://via.placeholder.com/600x300" alt="Project 1" class="img-fluid rounded mb-3">
+                    <div class="tech mb-2">
+                        <span class="badge bg-danger me-1">HTML</span>
+                        <span class="badge bg-primary me-1">CSS</span>
+                        <span class="badge bg-warning text-dark">JavaScript</span>
+                    </div>
+                    <p class="text-white-50">Project 1 description: A responsive website built with HTML, CSS, and
+                        JS.
+                    </p>
+                </div>
+
+                <!-- Manual Controls -->
+                <button id="prevBtn" class="btn btn-outline-light position-absolute top-50 start-0 translate-middle-y">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="nextBtn" class="btn btn-outline-light position-absolute top-50 end-0 translate-middle-y">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- See More Button -->
+            <button id="seeMoreBtn" class="btn btn-danger">See More...</button>
+        </div>
+    </section>
+
+    <!-- Overlay Full Projects Page -->
+    <div id="projectsOverlay" class="overlay d-none">
+        <div class="overlay-content container py-5">
+            <button id="closeOverlay" class="btn btn-outline-light mb-4"><i class="fa-solid fa-xmark"></i>
+                Close</button>
+            <h2 class="fw-bold text-center mb-5">All <span class="text-danger">Projects</span></h2>
+
+            <div class="row gy-4">
+                <div class="col-md-6">
+                    <div class="card bg-dark text-white h-100 p-3 rounded-3">
+                        <img src="pictures/3053932.jpg" class="rounded mb-3" alt="Project 2">
+                        <div class="tech mb-2">
+                            <span class="badge bg-success me-1">React</span>
+                            <span class="badge bg-info text-dark me-1">Bootstrap</span>
+                        </div>
+                        <p class="text-white-50">Project 2 description: A modern UI app using React & Bootstrap.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-dark text-white h-100 p-3 rounded-3">
+                        <img src="pictures/5721525.jpg" class="rounded mb-3" alt="Project 3">
+                        <div class="tech mb-2">
+                            <span class="badge bg-secondary me-1">Node.js</span>
+                            <span class="badge bg-warning text-dark">MongoDB</span>
+                        </div>
+                        <p class="text-white-50">Project 3 description: Backend API with Node.js & MongoDB.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-dark text-white h-100 p-3 rounded-3">
+                        <img src="pictures/5817154.jpg" class="rounded mb-3" alt="Project 4">
+                        <div class="tech mb-2">
+                            <span class="badge bg-danger me-1">Python</span>
+                            <span class="badge bg-primary">Django</span>
+                        </div>
+                        <p class="text-white-50">Project 4 description: A full-stack app built with Django
+                            framework.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-dark text-white h-100 p-3 rounded-3">
+                        <img src="pictures/coding.jpg" class="rounded mb-3" alt="Project 5">
+                        <div class="tech mb-2">
+                            <span class="badge bg-danger me-1">Flutter</span>
+                            <span class="badge bg-info text-dark">Firebase</span>
+                        </div>
+                        <p class="text-white-50">Project 5 description: A mobile app using Flutter and Firebase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Contact -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold display-5">Get in <span class="text-danger">Touch</span></h2>
+                <p class="text-muted">Let’s work together to create something amazing 🚀</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Contact Info (Single Box) -->
+                <div class="col-lg-4">
+                    <div class="contact-box p-4 rounded-4 shadow-sm text-center">
+                        <div class="mb-4">
+                            <i class="fa-solid fa-envelope fs-2 text-danger"></i>
+                            <h6 class="fw-bold mt-2">Email</h6>
+                            <p class="text-muted mb-0">ha9001868@email.com</p>
+                        </div>
+                        <div class="mb-4">
+                            <i class="fa-solid fa-phone fs-2 text-danger"></i>
+                            <h6 class="fw-bold mt-2">Phone</h6>
+                            <p class="text-muted mb-0">+92 341 2120752</p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-location-dot fs-2 text-danger"></i>
+                            <h6 class="fw-bold mt-2">Location</h6>
+                            <p class="text-muted mb-0">Karachi, Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <!-- Contact Form -->
+                <div class="col-lg-7 d-flex justify-content-center">
+                    <form class="smart-form p-4 rounded-4 shadow contact-form-box w-100">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                    <label for="name">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email"
+                                        required>
+                                    <label for="email">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+                                    <label for="subject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Your Message" id="message"
+                                        style="height: 120px" required></textarea>
+                                    <label for="message">Your Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-3">
+                                    <i class="fa-solid fa-paper-plane me-2"></i> Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer text-center py-4 mt-5">
+        <p class="mb-3 text-white-50">© 2025 Hammad Ahmed | All Rights Reserved</p>
+
+        <!-- Back to Top Button -->
+        <div class="d-flex justify-content-center">
+            <button id="backToTop" class="btn btn-danger rounded-circle shadow">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </div>
+    </footer>
+
+
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
+    <!-- Coding Background Script -->
+    <script>
+        const snippets = [
+            "if()", "else", "for()", "while()", "int",
+            "return", "function()", "console.log()",
+            "{ }", "<div>", "</html>", "class", "public",
+            "static", "void", "main()", "=>", "var", "let", "const"
+        ];
+
+        const container = document.getElementById("codeContainer");
+
+        for (let i = 0; i < 60; i++) {
+            const span = document.createElement("span");
+            span.innerText = snippets[Math.floor(Math.random() * snippets.length)];
+            span.style.left = Math.random() * 100 + "vw";
+            span.style.setProperty("--duration", (20 + Math.random() * 20) + "s"); // 20s-40s
+            span.style.setProperty("--delay", (Math.random() * 15) + "s"); // 0s-15s
+            container.appendChild(span);
+        }
+    </script>
+
+    <!-- Navbar Scroll Effect -->
+    <script>
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+    <script>
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+        function activateNavLink() {
+            let scrollPos = window.scrollY + 150; // offset to trigger earlier
+
+            sections.forEach((section) => {
+                if (
+                    scrollPos >= section.offsetTop &&
+                    scrollPos < section.offsetTop + section.offsetHeight
+                ) {
+                    navLinks.forEach((link) => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href").substring(1) === section.id) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener("scroll", activateNavLink);
+        window.addEventListener("load", activateNavLink);
+    </script>
+
+
+
+    <!-- Skills -->
+    <script>
+        function animateSkillIcons() {
+            const icons = document.querySelectorAll('.skill-icon');
+            const trigger = window.innerHeight * 0.8;
+            icons.forEach(icon => {
+                const top = icon.getBoundingClientRect().top;
+                if (top < trigger) {
+                    icon.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateSkillIcons);
+        window.addEventListener('load', animateSkillIcons);
+    </script>
+
+    <!-- Projects js -->
+    <script>
+        const projects = [
+            {
+                img: "pictures/3053932.jpg",
+                tech: ["HTML", "CSS", "JavaScript"],
+                desc: "Project 1 description: A responsive website built with HTML, CSS, and JS."
+            },
+            {
+                img: "pictures/5721525.jpg",
+                tech: ["React", "Bootstrap"],
+                desc: "Project 2 description: A modern UI app using React & Bootstrap."
+            },
+            {
+                img: "pictures/5817154.jpg",
+                tech: ["Node.js", "MongoDB"],
+                desc: "Project 3 description: Backend API with Node.js & MongoDB."
+            },
+            {
+                img: "pictures/coding.jpg",
+                tech: ["Python", "Django"],
+                desc: "Project 4 description: A full-stack app built with Django framework."
+            }
+        ];
+
+        let currentIndex = 0;
+        const projectCard = document.querySelector(".project-card");
+
+        function renderProject(index) {
+            const p = projects[index];
+
+            // Fade out first
+            projectCard.classList.add('fade-out');
+
+            setTimeout(() => {
+                // Change content after fade-out
+                projectCard.innerHTML = `
+            <img src="${p.img}" alt="Project ${index + 1}" class="img-fluid rounded mb-3">
+            <div class="tech mb-2">
+                ${p.tech.map(t => `<span class="badge bg-danger me-1">${t}</span>`).join("")}
+            </div>
+            <p class="text-white-50">${p.desc}</p>
+        `;
+
+                // Fade in
+                projectCard.classList.remove('fade-out');
+                projectCard.classList.add('fade-in');
+
+                // Remove fade-in after animation ends
+                setTimeout(() => {
+                    projectCard.classList.remove('fade-in');
+                }, 600); // matches CSS transition duration
+            }, 300); // small delay for smoother transition
+        }
+
+
+        // Manual Controls
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % projects.length;
+            renderProject(currentIndex);
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + projects.length) % projects.length;
+            renderProject(currentIndex);
+        });
+
+        // Auto Slide
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % projects.length;
+            renderProject(currentIndex);
+        }, 5000);
+
+        // Overlay Open/Close
+        const overlay = document.getElementById("projectsOverlay");
+        document.getElementById("seeMoreBtn").addEventListener("click", () => {
+            overlay.classList.remove("d-none");
+        });
+        document.getElementById("closeOverlay").addEventListener("click", () => {
+            overlay.classList.add("d-none");
+        });
+
+        // Initial Render
+        renderProject(currentIndex);
+    </script>
+
+    <!-- CSS -->
+    <style>
+        .project-card {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            transition: opacity 0.5s ease;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0c192c;
+            z-index: 9999;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .overlay-content {
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+        // Animate both text and image together
+        window.addEventListener('DOMContentLoaded', () => {
+            const textCol = document.querySelector('#banner .col-lg-6:first-child');
+            const imgCol = document.querySelector('#banner .col-lg-6:last-child');
+
+            setTimeout(() => {
+                textCol.classList.add('visible');
+                imgCol.classList.add('visible');
+            }, 300); // delay for smooth effect
+        });
+    </script>
+
+    <!-- footer -->
+    <script>
+        document.getElementById("backToTop").addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+    </script>
+
+</body>
+
+</html>
